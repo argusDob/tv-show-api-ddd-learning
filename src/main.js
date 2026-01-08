@@ -3,8 +3,9 @@ import { createPinia } from 'pinia'
 import './assets/main.css'
 import 'primeicons/primeicons.css'
 
+import { setupUseCases } from './application/compose/shows/useCases'
 import App from './App.vue'
-import router from './router'
+import router from './presentation/router'
 import PrimeVue from 'primevue/config'
 import Noir from './presets/Noir.js'
 
@@ -16,7 +17,13 @@ import Select from 'primevue/select'
 
 const app = createApp(App)
 
-app.use(createPinia())
+const pinia = createPinia()
+pinia.use(({ store }) => {
+  const useCases = setupUseCases()
+  store.useCases = useCases
+})
+
+app.use(pinia)
 app.use(router)
 
 app.use(PrimeVue, {
@@ -34,5 +41,8 @@ app.component('InputText', InputText)
 app.component('InlineMessage', Message)
 app.component('SelectDropDown', Select)
 app.component('ProgressSpinner', ProgressSpinner)
+
+app.provide('useCases', setupUseCases())
+
 
 app.mount('#app')

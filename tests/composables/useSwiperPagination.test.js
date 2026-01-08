@@ -1,6 +1,6 @@
 import { ref, nextTick } from 'vue'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { useSwiperPagination } from '@/composables/App/useSwiperPaginations'
+import { useSwiperPagination } from '@/presentation/composables/App/useSwiperPaginations'
 import ShowsService from '@/services/ShowsService'
 
 export const getShowsRequestMock = vi.fn(async (page) => {

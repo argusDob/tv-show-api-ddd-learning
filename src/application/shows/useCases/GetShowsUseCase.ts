@@ -1,10 +1,12 @@
-import { Show } from "@/domain/entities/show";
-import { IshowRepository } from "@/domain/repositories/iShowRepository";
+import { Show } from '@/domain/entities/show'
+import { IshowRepository } from '@/domain/repositories/iShowRepository'
 
-export class GetShowsUseCase {
-  constructor(private repository: IshowRepository) {}
-
-  async execute(page: number): Promise<Show[]> {
-    return await this.repository.findByPage(page)
+export const getShowsUseCase = (repository: IshowRepository): (page: number) => Promise<Show[]> => {
+  return async (page: number) => {
+    return await repository.findByPage(page)
   }
+}
+
+export interface IGetShowsUseCase {
+  (page: number): Promise<Show[]>
 }

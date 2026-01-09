@@ -1,18 +1,20 @@
-import { FilterCrimeShowsUseCase } from "@/application/filters/useCases/FilterCrimeShowsUseCase"
-import { FilterPopularShowsUseCase } from "@/application/filters/useCases/FilterPopularShowsUseCase"
-import { FilterShowsUseCase } from "@/application/filters/useCases/FilterShowsUseCase"
-import { GetShowsUseCase } from "@/application/shows/useCases/GetShowsUseCase"
+import { filterCrimeShowsUseCase } from "@/application/filters/useCases/filterCrimeShowsUseCase"
+import { filterPopularShowsUseCase } from "@/application/filters/useCases/filterPopularShowsUseCase"
+import { filterShowsUseCase } from "@/application/filters/useCases/filterShowsUseCase"
+import { getShowsUseCase } from "@/application/shows/useCases/getShowsUseCase"
 import { ShowRepository } from "@/infrastructure/show/repositories/showRepository"
-import { SearchShowsUseCase } from "@/application/shows/useCases/SearchShowsUseCase"
+import { searchShowsUsecase } from "@/application/shows/useCases/searchShowsUsecase"
+import {getShowsById} from "@/application/shows/useCases/getShowById"
+
 export const setupUseCases = () => {
   const repository = new ShowRepository()
 
   return {
-    getShows: new GetShowsUseCase(repository),
-    searchShows: new SearchShowsUseCase(repository),
-    getShowById: new GetShowsUseCase(repository),
-    filterCrime: new FilterCrimeShowsUseCase(),
-    filterPopular: new FilterPopularShowsUseCase(),
-    filterShows: new FilterShowsUseCase(),
+    getShows: getShowsUseCase(repository),
+    searchShows: searchShowsUsecase(repository),
+    getShowById: getShowsById(repository),
+    filterCrime: filterCrimeShowsUseCase,
+    filterPopular: filterPopularShowsUseCase,
+    filterShows: filterShowsUseCase,
   }
 }

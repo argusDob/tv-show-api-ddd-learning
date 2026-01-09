@@ -1,19 +1,13 @@
-import { GetShowsUseCase } from "@/application/shows/useCases/GetShowsUseCase"
-import { FilterCrimeShowsUseCase } from "./FilterCrimeShowsUseCase"
-import { FilterPopularShowsUseCase } from "./FilterPopularShowsUseCase"
+import { IGetShowsUseCase } from "@/application/shows/useCases/getShowsUseCase"
+import { IFilterCrimeShowsUseCase } from "@/application/filters/useCases/filterCrimeShowsUseCase"
+import { IFilterPopularShowsUseCase } from "@/application/filters/useCases/filterPopularShowsUseCase"
 
-export class ClearFiltersUseCase {
-  constructor(
-    private getShowsUseCase: GetShowsUseCase,
-    private filterCrimeUseCase: FilterCrimeShowsUseCase,
-    private filterPopularUseCase: FilterPopularShowsUseCase
-  ) {}
 
-  async execute(page: number) {
-    const shows = await this.getShowsUseCase.execute(page)
-    const crimeShows = this.filterCrimeUseCase.execute(shows)
-    const popularShows = this.filterPopularUseCase.execute(shows)
-
+export const clearFiltersUseCase = (getShowsUseCase: IGetShowsUseCase, filterCrimeUseCase: IFilterCrimeShowsUseCase, filterPopularUseCase: IFilterPopularShowsUseCase) => {
+  return async (page: number) => {
+    const shows = await getShowsUseCase(page)
+    const crimeShows = filterCrimeUseCase(shows)
+    const popularShows = filterPopularUseCase(shows)
     return {
       shows,
       crimeShows,

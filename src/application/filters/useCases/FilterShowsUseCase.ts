@@ -7,11 +7,9 @@ import { filterShows } from '@/domain/repositories/utils/showFilter'
  * Application Layer - User action for filtering shows by genre/rating
  * Uses Domain Service for business logic
  */
-export class FilterShowsUseCase {
-  execute(
-    shows: Show[],
-    criteria: { genre?: string | null; rating?: number | null }
-  ): Show[] {
-    return filterShows(shows, criteria)
-  }
+
+
+
+export const filterShowsUseCase = (shows: Show[], criteria: { genre?: string | null; rating?: number | null }): Show[] => {
+  return filterShows(shows, criteria)
 }

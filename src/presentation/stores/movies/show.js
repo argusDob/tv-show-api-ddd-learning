@@ -12,13 +12,13 @@ export const useShowStore = defineStore('show', {
 
   actions: {
     async loadShows(page) {
-      this.shows = await this.useCases.getShows.execute(page)
+      this.shows = await this.useCases.getShows(page)
     },
     resetShows() {
       this.shows = []
     },
     async searchedShows(term) {
-      this.shows = await this.useCases.searchShows.execute(term)
+      this.shows = await this.useCases.searchShows(term)
     },
     setFilteredShows(filterCriteria) {
       const genre = filterCriteria.genre?.value || null
@@ -29,7 +29,7 @@ export const useShowStore = defineStore('show', {
         return
       }
 
-      this.shows = this.useCases.filterShows.execute(this.shows, {
+      this.shows = this.useCases.filterShows(this.shows, {
         genre,
         rating,
       })
@@ -38,10 +38,10 @@ export const useShowStore = defineStore('show', {
       this.genresList = genresList
     },
     setPopularShows() {
-      this.popularShows = this.useCases.filterPopular.execute(this.shows)
+      this.popularShows = this.useCases.filterPopular(this.shows)
     },
     filterCrimeShows() {
-      this.crimeShows = this.useCases.filterCrime.execute(this.shows)
+      this.crimeShows = this.useCases.filterCrime(this.shows)
     },
     setShow(show) {
       this.show = show

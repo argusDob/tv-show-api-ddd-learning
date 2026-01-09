@@ -4,8 +4,8 @@ import { filterCrimeShows } from '@/domain/repositories/utils/showFilter'
 /**
  * Use Case: Filter Crime Shows
  * 
- * Application Layer - User action για filtering crime shows
- * Χρησιμοποιεί Domain Service για business logic
+ * Application Layer - User action for filtering crime shows
+ * Uses Domain Service for business logic
  */
 export class FilterCrimeShowsUseCase {
   execute(shows: Show[]): Show[] {

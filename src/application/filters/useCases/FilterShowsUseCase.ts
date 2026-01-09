@@ -4,8 +4,8 @@ import { filterShows } from '@/domain/repositories/utils/showFilter'
 /**
  * Use Case: Filter Shows by Criteria
  *
- * Application Layer - User action για filtering shows με genre/rating
- * Χρησιμοποιεί Domain Service για business logic
+ * Application Layer - User action for filtering shows by genre/rating
+ * Uses Domain Service for business logic
  */
 export class FilterShowsUseCase {
   execute(

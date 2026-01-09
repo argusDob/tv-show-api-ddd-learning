@@ -14,7 +14,7 @@ export type Show = {
   readonly premiered: string
   readonly averageRating: number
 
-  // Optional properties (μόνο αν χρειάζονται για business logic)
+  // Optional properties (only if needed for business logic)
   readonly network?: {
     name: string
     country: { name: string }
@@ -27,6 +27,8 @@ export type Show = {
   readonly type?: string
   readonly officialSite?: string | null
 }
+
+
 
 export const getRating = (show: Show): number => {
   if (show.weight <= 20) return 1

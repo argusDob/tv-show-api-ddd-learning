@@ -6,8 +6,8 @@ import { isCrimeShow, isPopularShow, hasGenre, matchesRating } from "@/domain/en
 /**
  * Domain Service: ShowFilter
  *
- * Business logic που δεν ανήκει σε ένα Entity.
- * Κάνει operations σε collections of Shows.
+ * Business logic that doesn't belong to a single Entity.
+ * Performs operations on collections of Shows.
  */
 export const filterCrimeShows = (shows: Show[]): Show[] => {
   return shows.filter(isCrimeShow)

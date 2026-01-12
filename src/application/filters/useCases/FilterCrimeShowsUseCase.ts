@@ -1,5 +1,5 @@
-import type { Show } from '@/domain/entities/show'
-import { filterCrimeShows } from '@/domain/repositories/utils/showFilter'
+import type { Show } from '@/domain/entities/show/show'
+import { filterCrimeShows } from '@/domain/repositories/service/showFilter'
 
 /**
  * Use Case: Filter Crime Shows

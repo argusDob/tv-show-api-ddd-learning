@@ -1,5 +1,5 @@
-import type { Show } from '@/domain/entities/show'
-import { filterShows } from '@/domain/repositories/utils/showFilter'
+import type { Show } from '@/domain/entities/show/show'
+import { filterShows } from '@/domain/repositories/service/showFilter'
 
 /**
  * Use Case: Filter Shows by Criteria

@@ -8,7 +8,7 @@
         <Transition name="fade">
           <div v-show="allShows?.length ?? 0">
             <ShowsSlider v-if="!isLoading" :key="allShows?.length ?? 0" :showsList="allShowsSwiperList"
-              @on-swiper-change="handleAllShowsChange" />
+              @on-swiper-change="handleAllShowsChange" @add-favourite="handleAddFavourite" />
             <ProgressSpinner v-else />
           </div>
         </Transition>
@@ -75,6 +75,10 @@ const popularShows = computed(() => showStore.popularShows)
 
 const handleSearchAction = async () => {
   await showStore.searchedShows(filterCriteria.value?.term)
+}
+
+const handleAddFavourite = (show) => {
+  showStore.addFavourites(show)
 }
 
 const handleClearSearch = async () => {

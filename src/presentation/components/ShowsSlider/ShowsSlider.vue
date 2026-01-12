@@ -12,7 +12,7 @@
     @slide-change="onSlideChange"
   >
     <SwiperSlide v-for="movie in showsList" :key="movie.id">
-      <SliderCard v-bind="movie" />
+      <SliderCard @add-favourite="handleAddFavourite" v-bind="movie" />
     </SwiperSlide>
   </Swiper>
 </template>
@@ -41,6 +41,10 @@ const swiperRef = ref(null)
 const modules = [Navigation, A11y]
 
 const emit = defineEmits(['onSwiperChange'])
+
+const handleAddFavourite = (show) => {
+  emit('addFavourite', show)
+}
 
 const onSwiper = (swiper) => {
   if (swiper) {

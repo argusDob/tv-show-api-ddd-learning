@@ -2,14 +2,15 @@
   <RouterLink :to="`/show/${id}`" class="slider-card">
     <div class="slider-card">
       <img
-        v-if="image?.medium"
-        :src="image?.medium"
+        v-if="image"
+        :src="image"
         :alt="name"
         class="slider-card__image"
         loading="lazy"
       />
       <div class="slider-card__info">
         <span class="slider-card__title">{{ name }}</span>
+        <button @click.prevent="handleAddFavourite({showId: id, name: name})">Add favourite</button>
         <span v-if="averageRating" class="slider-card__rating">{{ averageRating }}/10</span>
         <span v-else class="slider-card__rating">N/A</span>
       </div>
@@ -38,6 +39,11 @@ defineProps({
     default: () => {},
   },
 })
+
+const emit = defineEmits(['addFavourite'])
+const handleAddFavourite = (show) => {
+  emit('addFavourite', show)
+}
 </script>
 
 <style scoped lang="scss">

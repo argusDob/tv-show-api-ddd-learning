@@ -1,35 +1,34 @@
 <template>
   <RouterLink :to="`/`"> All Shows </RouterLink>
   <div v-if="!isLoading" class="show-details-view">
+
     <div class="show-details-view__image">
-      <img :src="selectedShow.image.medium" :alt="selectedShow.name" />
+      <img :src="show.image" :alt="show.name" />
     </div>
-    <div class="show-details-view__summary" v-html="selectedShow.summary"></div>
+   <div class="show-details-view__summary" v-html="show.summary"></div>
     <div class="show-details-view__card">
-      <ShowInfoCard v-bind="selectedShow" />
+      <ShowInfoCard v-bind="show" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from 'vue'
-
+import { onMounted, ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import ShowInfoCard from '@/presentation/components/ShowIfoCard/ShowInfoCard.vue'
 
-// import ShowService from '@/services/ShowsService'
-import { useRoute } from 'vue-router'
-
-// const showService = new ShowService()
+import { useShowStore } from '@/presentation/stores/movies/show'
+const showStore = useShowStore()
 const route = useRoute()
 
 const isLoading = ref(true)
 
-// const selectedShow = computed(() => showService.getShow())
+const show = computed(() => showStore.show)
 
 onMounted(async () => {
   const id = route.params.id
   try {
-    // await showService.requestShow(id)
+    await showStore.loadShow(id)
   } catch (err) {
     console.error(err)
   } finally {

@@ -3,14 +3,13 @@
     <div class="show-card__info">
       <h2>{{ name }}</h2>
       <ul class="show-card__details">
-        <li v-if="network">
-          <strong>Network:</strong> {{ network.name }} - {{ network.country.name }}
+        <li>
+          <strong>Network:</strong> {{ network }} - {{ network.country }}
         </li>
         <li>
           <strong>Schedule:</strong>
-          <span v-for="(day, index) in schedule.days" :key="index">
-            {{ day }} <span v-if="schedule.days.length > 1">|</span>
-          </span>
+          <span>
+            {{ sheduleDays }} / {{ sheduleTime }}</span>
         </li>
         <li v-if="runtime"><strong>Runtime:</strong>{{ runtime }} / min</li>
         <li v-if="status"><strong>Status:</strong> {{ status }}</li>
@@ -36,14 +35,16 @@ defineProps({
     default: 'N/A',
   },
   network: {
-    type: Object,
+    type: String,
     required: true,
-    default: () => ({ name: 'N/A', country: { name: 'N/A' } }),
+  },
+  country: {
+    type: String,
+    required: true,
   },
   schedule: {
-    type: Object,
+    type: String,
     required: true,
-    default: () => ({}),
   },
   runtime: {
     type: Number,
@@ -75,10 +76,13 @@ defineProps({
     required: true,
     default: 0,
   },
-  schedule: {
-    type: Object,
+  sheduleDays: {
+    type: String,
     required: true,
-    default: () => ({}),
+  },
+  sheduleTime: {
+    type: String,
+    required: true,
   },
 })
 </script>

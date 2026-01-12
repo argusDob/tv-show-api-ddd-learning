@@ -1,4 +1,4 @@
-import type { Show } from '../entities/show'
+import type { Show } from '../entities/show/show'
 
 export interface IshowRepository {
   findByPage(page: number): Promise<Show[]>

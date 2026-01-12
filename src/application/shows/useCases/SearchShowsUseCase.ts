@@ -1,4 +1,4 @@
-import { Show } from "@/domain/entities/show";
+import { Show } from "@/domain/entities/show/show";
 import { IshowRepository } from "@/domain/repositories/iShowRepository";
 
 export const searchShowsUsecase = (repository: IshowRepository): (term: string) => Promise<Show[]> => {

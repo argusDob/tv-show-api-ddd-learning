@@ -1,5 +1,6 @@
 // src/stores/show.js
 import { defineStore } from 'pinia'
+import { toShowViewModel } from '@/presentation/models/ShowViewModel'
 
 export const useShowStore = defineStore('show', {
   state: () => ({
@@ -12,13 +13,19 @@ export const useShowStore = defineStore('show', {
 
   actions: {
     async loadShows(page) {
-      this.shows = await this.useCases.getShows(page)
+      const shows = await this.useCases.getShows(page)
+      const favourites = await this.useCases.findAllFavourites
+      this.shows = shows.map(show => toShowViewModel(show, favourites))
     },
     resetShows() {
       this.shows = []
     },
     async searchedShows(term) {
       this.shows = await this.useCases.searchShows(term)
+    },
+    async loadShow(id) {
+     const show = await this.useCases.getShowById(id)
+     this.show = toShowViewModel(show, [])
     },
     setFilteredShows(filterCriteria) {
       const genre = filterCriteria.genre?.value || null
@@ -34,6 +41,10 @@ export const useShowStore = defineStore('show', {
         rating,
       })
     },
+    addFavourites(show) {
+      this.useCases.addFavourites(show)
+    },
+
     setGenreList(genresList) {
       this.genresList = genresList
     },

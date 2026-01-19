@@ -1,17 +1,12 @@
-import { Show } from "@/domain/entities/show/show"
-
 export type Favourite = {
   readonly showId: number
   readonly addedAt: Date
-  readonly show: Show  // Reference στο Show entity
 }
 
-
-const createFavourite = (show: Show): Favourite => {
+export const createFavourite = (showId: number): Favourite => {
   return {
-    showId: show.id,
+    showId,
     addedAt: new Date(),
-    show: show,
   }
 }
 

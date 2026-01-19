@@ -1,6 +1,7 @@
 // src/stores/show.js
 import { defineStore } from 'pinia'
 import { toShowViewModel } from '@/presentation/models/ShowViewModel'
+import { calculateIsFavourite } from '@/presentation/models/ShowViewModel'
 
 export const useShowStore = defineStore('show', {
   state: () => ({
@@ -14,8 +15,9 @@ export const useShowStore = defineStore('show', {
   actions: {
     async loadShows(page) {
       const shows = await this.useCases.getShows(page)
-      const favourites = await this.useCases.findAllFavourites
+      const favourites = await this.useCases.findAllFavourites()
       this.shows = shows.map(show => toShowViewModel(show, favourites))
+      this.genresList = this.useCases.getGenresUseCase(shows)
     },
     resetShows() {
       this.shows = []
@@ -41,10 +43,30 @@ export const useShowStore = defineStore('show', {
         rating,
       })
     },
-    addFavourites(show) {
-      this.useCases.addFavourites(show)
-    },
+    async addFavourites(showData) {
+      const showId = showData.showId || showData.id
+      await this.useCases.addFavourites(showId)
+      const favourites = await this.useCases.findAllFavourites()
 
+      this.shows = this.shows.map((svm) => {
+        return {
+          ...svm,
+          isFavourite: calculateIsFavourite(svm.id, favourites)
+        }
+      })
+    },
+    async removeFavourites(showData) {
+      const showId = showData.showId || showData.id
+      await this.useCases.removeFavourites(showId)
+      const favourites = await this.useCases.findAllFavourites()
+
+      this.shows = this.shows.map((svm) => {
+        return {
+          ...svm,
+          isFavourite: calculateIsFavourite(svm.id, favourites)
+        }
+      })
+    },
     setGenreList(genresList) {
       this.genresList = genresList
     },

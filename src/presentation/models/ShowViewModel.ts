@@ -1,5 +1,9 @@
-import { Favourite } from '@/domain/entities/favourite/favourite'
+import type { Favourite } from '@/domain/entities/favourite/favourite'
 import type {Show} from '@/domain/entities/show/show'
+
+export const calculateIsFavourite = (showId: number, favourites: Favourite[]): boolean => {
+  return favourites.some(f => f.showId === showId)
+}
 
 export function toShowViewModel(show: Show, favourites: Favourite[]): ShowViewModel {
   return {
@@ -12,12 +16,12 @@ export function toShowViewModel(show: Show, favourites: Favourite[]): ShowViewMo
     type: show.type,
     genres: show.genres,
     officialSite: show.officialSite,
-    weight: show.weight,
+    weight: show.weight.value,
     network: show.network?.name,
     country: show.network?.country?.name,
     sheduleDays: show.schedule?.days.join(', '),
     sheduleTime: show.schedule?.time,
-    isFavourite: favourites.some(f => f.showId === show.id),
+    isFavourite: calculateIsFavourite(show.id, favourites),
   }
 }
 

@@ -13,6 +13,7 @@
         <button @click.prevent="handleAddFavourite({showId: id, name: name})">Add favourite</button>
         <span v-if="averageRating" class="slider-card__rating">{{ averageRating }}/10</span>
         <span v-else class="slider-card__rating">N/A</span>
+        <span>{{ isFavourite ? 'Favourite' : 'Not favourite' }}</span>
       </div>
     </div>
   </RouterLink>
@@ -37,6 +38,11 @@ defineProps({
     type: Object,
     required: true,
     default: () => {},
+  },
+  isFavourite: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
 })
 

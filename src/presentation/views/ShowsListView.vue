@@ -38,8 +38,6 @@ import FiltersGroup from '@/presentation/components/FiltersGroup/FiltersGroup.vu
 const ShowsSlider = defineAsyncComponent(() => import('@/presentation/components/ShowsSlider/ShowsSlider.vue'))
 const showStore = useShowStore()
 
-// import ShowsService from '@/services/ShowsService'
-// import FiltersService from '@/services/FiltersService'
 import { useSwiperPagination } from '@/presentation/composables/App/useSwiperPaginations'
 const FIRST_PAGE = 1
 
@@ -53,8 +51,6 @@ const filterCriteria = ref({
 const currentPage = ref(FIRST_PAGE)
 const isLoading = ref(false)
 
-// const showService = new ShowsService()
-// const filtersService = new FiltersService()
 
 watch(filterCriteria, (updatedFilterCriteria) => {
   if (
@@ -71,7 +67,7 @@ watch(filterCriteria, (updatedFilterCriteria) => {
 const allShows = computed(() => showStore.shows)
 const crimeShows = computed(() => showStore.crimeShows)
 const popularShows = computed(() => showStore.popularShows)
-// const genreList = computed(() => showService.getGenreList())
+const genreList = computed(() => showStore.genresList)
 
 const handleSearchAction = async () => {
   await showStore.searchedShows(filterCriteria.value?.term)

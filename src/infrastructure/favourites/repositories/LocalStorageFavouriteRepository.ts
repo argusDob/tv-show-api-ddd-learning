@@ -1,5 +1,5 @@
 import { Favourite } from "@/domain/entities/favourite/favourite";
-import { IFavouriteRepository } from "@/domain/repositories/IFavouriteRepository";
+import { IFavouriteRepository } from "@/domain/repositories/iFavouriteRepository";
 import { validateFavourite } from "@/domain/repositories/service/favourites";
 
 export function LocalStorageFavouriteRepository(): IFavouriteRepository {
@@ -11,6 +11,7 @@ export function LocalStorageFavouriteRepository(): IFavouriteRepository {
   const add = async (favourite: Favourite) => {
     const favouritesList = await findAll() as Favourite[]
     validateFavourite(favouritesList, favourite)
+    favouritesList.push(favourite)
     localStorage.setItem('favourites', JSON.stringify(favouritesList))
   }
 

@@ -1,4 +1,7 @@
 import { validateShow } from "@/domain/entities/show/show-validation"
+import { Weight } from "@/domain/value-objects/weight"
+import {type Review} from '@/domain/entities/review/review'
+
 
 export type Show = {
   // Identity
@@ -7,7 +10,7 @@ export type Show = {
   // Core business properties
   readonly name: string
   readonly genres: string[]
-  readonly weight: number
+  readonly weight: Weight
 
   // Display properties
   readonly summary: string
@@ -15,6 +18,7 @@ export type Show = {
   readonly status: string
   readonly premiered: string
   readonly averageRating: number
+  readonly reviews: Review[]
 
   // Optional properties (only if needed for business logic)
   readonly network?: {
@@ -38,12 +42,13 @@ export type CreateShowData = {
   id: number
   name: string
   genres: string[]
-  weight: number
+  weight: Weight
   summary: string
   image: { medium: string }
   status: string
   premiered?: string
   averageRating?: number
+  reviews?: Review[]
   network?: {
     name?: string
     country?: { name?: string }
@@ -96,14 +101,15 @@ export function createShow(data: CreateShowData): Show {
     runtime: data.runtime,
     type: data.type,
     officialSite: data.officialSite ?? null,
+    reviews: data.reviews ?? [],
   }
 }
 
 export const getRating = (show: Show): number => {
-  if (show.weight <= 20) return 1
-  if (show.weight <= 40) return 2
-  if (show.weight <= 60) return 3
-  if (show.weight <= 80) return 4
+  if (show.weight.value <= 20) return 1
+  if (show.weight.value <= 40) return 2
+  if (show.weight.value <= 60) return 3
+  if (show.weight.value <= 80) return 4
   return 5
 }
 

@@ -1,4 +1,5 @@
 import { Show, createShow, type CreateShowData } from "@/domain/entities/show/show"
+import { createWeight } from "@/domain/value-objects/weight"
 
 /**
  * Type representing the TVMaze API show response structure.
@@ -39,7 +40,7 @@ export const mapApiShowToDomain = (apiData: ApiShowResponse): Show => {
     id: apiData.id,
     name: apiData.name,
     genres: apiData.genres || [],
-    weight: apiData.weight,
+    weight: createWeight(apiData.weight),
     summary: apiData.summary || '',
     image: {
       medium: apiData.image?.medium || '',
